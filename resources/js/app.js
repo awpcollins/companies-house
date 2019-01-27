@@ -37,7 +37,10 @@ const app = new Vue({
         quoteSuccessful: '',
         loading: false,
         input: {
-            customerName: '',
+            customerName: {
+                firstName: '',
+                lastName: '',
+            },
             companyNumber: '',
         },
         results: {},
@@ -45,12 +48,12 @@ const app = new Vue({
 
     methods: {
         getResults(e) {
-            const { companyNumber, customerName } = this.input;
+            const { firstName, lastName, companyNumber} = this.input;
 
             this.loading = true
             this.showResults = false
 
-            window.axios.post('/api/quote', {companyNumber, customerName})
+            window.axios.post('/api/quote', {customerName: [firstName, lastName], companyNumber})
             .then(res => {
                 if(res.data.success){
                     this.showResults = true;

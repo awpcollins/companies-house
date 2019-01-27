@@ -47774,7 +47774,10 @@ var app = new Vue({
     quoteSuccessful: '',
     loading: false,
     input: {
-      customerName: '',
+      customerName: {
+        firstName: '',
+        lastName: ''
+      },
       companyNumber: ''
     },
     results: {}
@@ -47784,13 +47787,14 @@ var app = new Vue({
       var _this = this;
 
       var _this$input = this.input,
-          companyNumber = _this$input.companyNumber,
-          customerName = _this$input.customerName;
+          firstName = _this$input.firstName,
+          lastName = _this$input.lastName,
+          companyNumber = _this$input.companyNumber;
       this.loading = true;
       this.showResults = false;
       window.axios.post('/api/quote', {
-        companyNumber: companyNumber,
-        customerName: customerName
+        customerName: [firstName, lastName],
+        companyNumber: companyNumber
       }).then(function (res) {
         if (res.data.success) {
           _this.showResults = true;

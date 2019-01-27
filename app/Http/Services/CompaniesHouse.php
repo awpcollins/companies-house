@@ -38,16 +38,4 @@ class CompaniesHouse
 
         return Promise\unwrap($promises);
     }
-
-    /**
-     * Compares two names to see if match is reasonable
-     *
-     * @param string $name1
-     * @param string $name2
-     *
-     * @return
-     */
-    public function compareNames($name1, $name2){
-
-    }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\CompaniesHouse;
+use App\Services\Quote as QuoteService;
 use Illuminate\Http\Request;
 
 class QuoteController extends Controller
@@ -24,16 +25,27 @@ class QuoteController extends Controller
         $results = $this->companiesHouse->getCompanyInfo($request->input('companyNumber'));
 
         if ($results['basic']->getStatusCode() !== 200 || $results['officers']->getStatusCode() !== 200) {
-            return response()->json([
-                'success' => false,
-                'status' => $results['basic']->getStatusCode(),
-            ]);
+            return response()->setStatusCode($results['basic']->getStatusCode());
         }
 
-        // $namesMatch = $this->companiesHouse->checkNames
+        $quote = new QuoteService();
+
+        $companyOfficers = json_decode($results['officers']->getBody()->getContents());
+
+        dd($companyOfficers->items[0]->name);
+
+        $nameMatch = $quote->nameMatch($companyOfficers->items[0]->name, $request->input('customerName'));
+
+        if(!$nameMatch){
+            return response()->json([
+                'msg' => 'This insurance must be applied for by the company director'
+            ])->setStatusCode(400);
+        }
+
+        $companyInfo = json_decode($results['basic']->getBody()->getContents());
 
         return response()->json([
-            'success' => true,
+            'success' => $quote->calculateResults($companyInfo),
         ]);
     }
 }

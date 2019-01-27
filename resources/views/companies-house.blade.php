@@ -25,6 +25,40 @@
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
+                                            First Name
+                                        </div>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        v-model="input.customerName.firstName"
+                                        id="firstName"
+                                        placeholder="Please enter your first name"
+                                    />
+                                </div>
+                            </div>
+
+                              <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            Last Name
+                                        </div>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        v-model="input.customerName.lastName"
+                                        id="lastName"
+                                        placeholder="Please enter your last name"
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
                                             Company No.
                                         </div>
                                     </div>
@@ -38,22 +72,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            Customer Name
-                                        </div>
-                                    </div>
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        v-model="input.customerName"
-                                        id="customerName"
-                                        placeholder="Please enter your full name"
-                                    />
-                                </div>
-                            </div>
+
 
                             <div class="form-group">
                                 <input
