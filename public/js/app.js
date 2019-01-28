@@ -47784,38 +47784,26 @@ var app = new Vue({
   },
   methods: {
     getResults: function getResults(e) {
-      var _this = this;
-
       var _this$input = this.input,
-          firstName = _this$input.firstName,
-          lastName = _this$input.lastName,
+          customerName = _this$input.customerName,
           companyNumber = _this$input.companyNumber;
       this.loading = true;
       this.showResults = false;
       window.axios.post('/api/quote', {
-        customerName: [firstName, lastName],
+        customerName: customerName,
         companyNumber: companyNumber
       }).then(function (res) {
         if (res.data.success) {
-          _this.showResults = true;
+          return swal("Quote Successful", "Congratulations!", "success");
         }
+
+        return swal("Quote Unsuccessful", "We won't be able to offer you insurance at this time", "warning");
       }).catch(function (err) {
         console.log(err);
-
-        _this.createError('Something went wrong please try again later.');
+        swal("Oops", "Something went wrong", "error");
       });
       e.preventDefault();
       this.loading = false;
-    },
-    createError: function createError(msg) {
-      var errorDiv = document.createElement('div');
-      errorDiv.className = 'alert alert-danger';
-      errorDiv.appendChild(document.createTextNode(msg));
-      card.insertBefore(errorDiv, heading);
-      setTimeout(clearError, 5000);
-    },
-    clearError: function clearError() {
-      this.showError = true;
     }
   }
 });

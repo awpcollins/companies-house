@@ -11,6 +11,7 @@
             integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
             crossorigin="anonymous"
         />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     </head>
 
     <body>
@@ -18,7 +19,7 @@
             <div class="row">
                 <div class="col-md-6 mx-auto">
                     <div class="card card-body text-center mt-5">
-                        <h1 class="heading display-5 pb-3">Digital Risks</h1>
+                        <h1 class="heading display-5 pb-3">Professional Indemnity Quote</h1>
 
                         <form id="loan-form">
                             <div class="form-group">
@@ -71,8 +72,6 @@
                                     />
                                 </div>
                             </div>
-
-
 
                             <div class="form-group">
                                 <input

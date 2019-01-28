@@ -48,40 +48,27 @@ const app = new Vue({
 
     methods: {
         getResults(e) {
-            const { firstName, lastName, companyNumber} = this.input;
+            const { customerName, companyNumber} = this.input;
 
             this.loading = true
             this.showResults = false
 
-            window.axios.post('/api/quote', {customerName: [firstName, lastName], companyNumber})
+            window.axios.post('/api/quote', {customerName, companyNumber})
             .then(res => {
                 if(res.data.success){
-                    this.showResults = true;
+                   return swal("Quote Successful", "Congratulations!", "success");
                 }
+
+                return swal("Quote Unsuccessful", "We won't be able to offer you insurance at this time", "warning")
             })
             .catch(err => {
                 console.log(err);
-                this.createError('Something went wrong please try again later.')
+                swal("Oops" , "Something went wrong" ,  "error");
             })
 
             e.preventDefault();
 
             this.loading = false
-        },
-
-        createError(msg) {
-            const errorDiv = document.createElement('div')
-
-            errorDiv.className = 'alert alert-danger'
-            errorDiv.appendChild(document.createTextNode(msg))
-
-            card.insertBefore(errorDiv, heading)
-
-            setTimeout(clearError, 5000)
-        },
-
-        clearError() {
-            this.showError = true
         },
     },
 })

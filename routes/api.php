@@ -17,5 +17,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware('quote')->post('/quote', 'QuoteController@index');
+Route::middleware('quote')->post('/quote', 'QuoteController@getQuote');
 

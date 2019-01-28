@@ -20,26 +20,21 @@ class QuoteController extends Controller
         $this->companiesHouse = $companiesHouse;
     }
 
-    public function index(Request $request)
+    public function getQuote(Request $request)
     {
         $results = $this->companiesHouse->getCompanyInfo($request->input('companyNumber'));
 
-        if ($results['basic']->getStatusCode() !== 200 || $results['officers']->getStatusCode() !== 200) {
-            return response()->setStatusCode($results['basic']->getStatusCode());
+        if ($results['basic']->getStatusCode() !== 200) {
+            return response()->json($results['basic']->getReasonPhrase(), $results['basic']->getStatusCode());
         }
 
         $quote = new QuoteService();
 
         $companyOfficers = json_decode($results['officers']->getBody()->getContents());
-
-        dd($companyOfficers->items[0]->name);
-
         $nameMatch = $quote->nameMatch($companyOfficers->items[0]->name, $request->input('customerName'));
 
         if(!$nameMatch){
-            return response()->json([
-                'msg' => 'This insurance must be applied for by the company director'
-            ])->setStatusCode(400);
+            return response()->json("Customer and director name don't seem to be a match, please try again.", 400);
         }
 
         $companyInfo = json_decode($results['basic']->getBody()->getContents());
