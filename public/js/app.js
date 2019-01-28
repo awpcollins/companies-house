@@ -47799,7 +47799,6 @@ var app = new Vue({
 
         return swal("Quote Unsuccessful", "We won't be able to offer you insurance at this time", "warning");
       }).catch(function (err) {
-        console.log(err);
         swal("Oops", "Something went wrong", "error");
       });
       e.preventDefault();
